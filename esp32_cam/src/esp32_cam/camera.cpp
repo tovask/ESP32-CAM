@@ -5,7 +5,6 @@
 
 #include "camera.h"
 #include <Arduino.h>
-#include <esp_camera.h>
 
 // Select camera model
 #define CAMERA_MODEL_AI_THINKER  // CAMERA_MODEL_WROVER_KIT CAMERA_MODEL_ESP_EYE CAMERA_MODEL_M5STACK_PSRAM CAMERA_MODEL_M5STACK_WIDE
@@ -78,7 +77,7 @@ void camera_setup() {
     s->set_saturation(s, -2);//lower the saturation
   }
   //drop down frame size for higher initial frame rate
-  s->set_framesize(s, FRAMESIZE_QVGA);
+  //s->set_framesize(s, FRAMESIZE_QVGA);
 
 #if defined(CAMERA_MODEL_M5STACK_WIDE)
   s->set_vflip(s, 1);
