@@ -20,13 +20,16 @@
   https://github.com/PX4/Flow/blob/master/src/include/i2c_frame.h
   https://github.com/eschnou/arduino-px4flow-i2c
 
-  TFmini Plus:
+  TFmini Plus (std9040):
+  http://en.benewake.com/product/detail/5c345cd0e5b3a844c472329b.html
+  https://github.com/senegalo/TFMiniPlus
 
 
 */
 
 #include "src/esp32_cam/camera.h"
 #include "flow.hpp"
+#include "lidar.hpp"
 
 #define SENSOR_ID 0 // TODO: 
 
@@ -40,11 +43,10 @@ void setup() {
 
   camera_setup(); // setting up and configuring the camera
 
-  flow_setup(); // setting up and configuring the flow computer // TODO: add parameter img_width, img_hight
+  // setting up and configuring the flow computer, initializing it's image buffer
   camera_fb_t * fb = esp_camera_fb_get();
-  int dt_us;
-  float flow_x, flow_y;
-  int flow_quality = getFlow(fb->buf, dt_us, flow_x, flow_y); // TODO: do it in flow_setup
+  // TODO: check/use fb->width (fb->height, fb->len)
+  flow_setup(fb->buf);
   esp_camera_fb_return(fb); // return the buffer to the pool
 
   time_prev = esp_timer_get_time();
@@ -59,22 +61,22 @@ void loop() {
   }
 
   int64_t time_now = esp_timer_get_time(); // current time in micro seconds
-  int64_t sec_now = time_now / 1000000; // current time in seconds
-
 
   int dt_us;
   float flow_x, flow_y;
-  int flow_quality = getFlow(fb->buf, dt_us, flow_x, flow_y); // TODO: do it in flow_setup
+  int flow_quality = getFlow(fb->buf, dt_us, flow_x, flow_y);
 
-  Serial.printf("%" PRIu32 " dt: %d us,\tx: %f,\ty: %f,\tquality: %d\n", (uint32_t)time_now, dt_us, flow_x, flow_y, flow_quality);
+  uint16_t ground_distance = get_distance(); // from lidar
 
+  // TODO: check if dt_us == (time_now - time_prev)
 
-  float ground_distance = 1; // from lidar
-  //const float focal_length_px = (global_data.param[PARAM_FOCAL_LENGTH_MM]) / (4.0f * 6.0f) * 1000.0f; //original focal lenght: 12mm pixelsize: 6um, binning 4 enabled
-  float focal_length = 250;
+  //float flow_comp_m_x = - pixel_flow_x / focal_length / ( (time_now - time_prev) / 1000000.0f) * ground_distance;
 
-  float pixel_flow_x = flow_x;
-  float flow_comp_m_x = - pixel_flow_x / focal_length / ( (time_now - time_prev) / 1000000.0f) * ground_distance;
+  float speed_x = tan(flow_x) * (float)ground_distance;
+  float speed_y = tan(flow_y) * (float)ground_distance;
+
+  Serial.printf("%" PRIu32 " dt: %d us,\tx: %f,\ty: %f,\tquality: %d,\tlidar: %" PRIu16 " \n", (uint32_t)time_now, dt_us, flow_x, flow_y, flow_quality, ground_distance);
+
 
   /*  // send flow
     mavlink_msg_optical_flow_send(
@@ -100,8 +102,5 @@ void loop() {
 
   esp_camera_fb_return(fb); // return the buffer to the pool
 
-  if (sec_now != sec_prev) {
-    sec_prev = sec_now;
-  }
   time_prev = time_now;
 }

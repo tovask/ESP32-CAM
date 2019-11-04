@@ -63,7 +63,8 @@ OpticalFlowPX4::OpticalFlowPX4(float f_length_x, float f_length_y, int ouput_rat
 
 OpticalFlowPX4::~OpticalFlowPX4(void)
 {
-
+  delete px4_flow;
+  delete img_old;
 }
 
 int OpticalFlowPX4::calcFlow(uint8_t *img_current, const uint32_t &img_time_us, int &dt_us, float &flow_x,

@@ -11,7 +11,6 @@
 #include "camera_pins.h"	// 
 
 
-//static
 void camera_setup() {
 
   //  https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/Camera/CameraWebServer
@@ -52,7 +51,7 @@ void camera_setup() {
   
   // https://github.com/espressif/esp32-camera/blob/master/driver/include/sensor.h
   config.pixel_format = PIXFORMAT_GRAYSCALE;
-  config.frame_size = FRAMESIZE_QQVGA; // FRAMESIZE_QQVGA => 160x120 (smallest)
+  config.frame_size = FRAMESIZE_QQVGA2; // FRAMESIZE_QQVGA2 => 128x160 (smallest one which is at least as wide as high)
   
   config.jpeg_quality = 10;
   config.fb_count = 1;
