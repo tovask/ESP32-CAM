@@ -15,6 +15,8 @@ mavlink:
 https://mavlink.io/en/mavgen_c/
 https://github.com/mavlink/c_library_v2
 https://github.com/mavlink/c_library_v2/blob/master/common/mavlink_msg_optical_flow.h
+https://github.com/mavlink/c_library_v1/blob/master/common/mavlink_msg_optical_flow.h#L200
+https://github.com/mavlink/c_library_v1/blob/master/mavlink_helpers.h#L620
 https://github.com/PX4/Flow/blob/master/src/modules/flow/main.c#L572
 
 i2c:
