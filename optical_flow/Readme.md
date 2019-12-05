@@ -5,6 +5,10 @@ configure submodules
 adjust focal length
 
 
+`git submodule init`
+git submodule update
+
+
 esp32:  
 https://github.com/espressif/esp32-camera  
 

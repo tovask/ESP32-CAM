@@ -13,7 +13,7 @@
 #define MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
 #include "src/c_library_v1/mavlink_types.h"
-//#include "src/mavlink_c_library_v2/mavlink_types.h"
+//#include "src/c_library_v2/mavlink_types.h"
 
 static mavlink_system_t mavlink_system = {
   100, // sysid: System ID, 1-255
