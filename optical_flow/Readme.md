@@ -1,13 +1,16 @@
 
+Az ESP32-CAM képéből optical flow számolás, a TFmini-Plus távolság értékével a sebesség becslése.
 
-TODO:
-adjust focal length
+TODO:  
+adjust focal length  
 
-  
+<br><br>
+
 `git submodule init`  
 `git submodule update`  
 
-  
+<br><br>
+
 esp32:  
 https://github.com/espressif/esp32-camera  
 
