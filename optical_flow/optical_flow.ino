@@ -23,7 +23,8 @@ void setup() {
   flow_setup(fb->buf);
   esp_camera_fb_return(fb); // return the buffer to the pool
 
-  start_video_streaming();
+  // for debugging, the camera image can be viewed online, but it will slow down the device (maybe blocking the flow calculation)
+  //start_video_streaming();
 }
 
 
@@ -49,7 +50,7 @@ void loop() {
   float speed_x = tan(flow_rate_x) * (float)ground_distance;
   float speed_y = tan(flow_rate_y) * (float)ground_distance;
 
-  //Serial.printf("%" PRIu32 " dt: %d us,\tx: %7.3f,\ty: %7.3f,\tquality: %4d,\tlidar: %" PRIu16 " \n", (uint32_t)time_now, dt_us, flow_rate_x, flow_rate_y, flow_quality, ground_distance);
+  Serial.printf(" dt: %6d us,\tx: %7.3f,\ty: %7.3f,\tquality: %4d,\tlidar: %" PRIu16 " \n", dt_us, speed_x, speed_y, flow_quality, ground_distance);
 
 
   // sending the data

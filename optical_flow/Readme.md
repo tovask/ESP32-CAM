@@ -1,5 +1,9 @@
 
 
+TODO:
+configure submodules
+adjust focal length
+
 
 esp32:  
 https://github.com/espressif/esp32-camera  
@@ -23,6 +27,6 @@ i2c:
 https://github.com/PX4/Flow/blob/master/src/include/i2c_frame.h  
 https://github.com/eschnou/arduino-px4flow-i2c  
 
-TFmini Plus (std9040): 
-http://en.benewake.com/product/detail/5c345cd0e5b3a844c472329b.html 
-https://github.com/senegalo/TFMiniPlus 
+TFmini Plus (std9040):  
+http://en.benewake.com/product/detail/5c345cd0e5b3a844c472329b.html  
+https://github.com/senegalo/TFMiniPlus  
